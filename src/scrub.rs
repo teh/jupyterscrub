@@ -1,3 +1,5 @@
+use serde::Serialize;
+
 #[derive(Debug)]
 pub struct ScrubResult {
     pub modified: bool,
@@ -23,9 +25,15 @@ pub fn scrub(input: &str) -> anyhow::Result<ScrubResult> {
         })
         .collect();
 
+    // construct a custom formatter to match the 1-indent produced by jupyter notebooks.
+    let formatter = serde_json::ser::PrettyFormatter::with_indent(&[b' ']);
+    let mut writer = Vec::with_capacity(128);
+    let mut serializer = serde_json::ser::Serializer::with_formatter(&mut writer, formatter);
+    doc.serialize(&mut serializer)?;
+
     Ok(ScrubResult {
         modified,
-        json: serde_json::to_string_pretty(&doc)?,
+        json: String::from_utf8(writer)?,
     })
 }
 

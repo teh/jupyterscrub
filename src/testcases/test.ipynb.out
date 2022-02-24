@@ -3,7 +3,7 @@
   {
    "cell_type": "code",
    "outputs": [],
-   "execution_count": 1,
+   "execution_count": null,
    "metadata": {},
    "source": [
     "import pandas"
@@ -12,7 +12,7 @@
   {
    "cell_type": "code",
    "outputs": [],
-   "execution_count": 2,
+   "execution_count": null,
    "metadata": {},
    "source": [
     "error"

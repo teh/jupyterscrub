@@ -21,6 +21,9 @@ pub fn scrub(input: &str) -> anyhow::Result<ScrubResult> {
                 modified = modified || !outputs.is_empty();
             }
             x.outputs = Some(vec![]);
+            if let Some(value) = x.additional_properties.get_mut("execution_count") {
+                *value = serde_json::value::Value::Null;
+            }
             x
         })
         .collect();

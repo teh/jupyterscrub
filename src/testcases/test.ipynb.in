@@ -39,7 +39,9 @@
   },
   {
    "cell_type": "raw",
-   "metadata": {"anything": "something"},
+   "metadata": {
+     "anything": "something"
+   },
    "source": [
     "raw"
    ]

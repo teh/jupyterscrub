@@ -17,10 +17,13 @@ pub fn scrub(input: &str) -> anyhow::Result<ScrubResult> {
         .cells
         .into_iter()
         .map(|mut x: crate::nbformat::Cell| {
-            if let Some(outputs) = x.outputs {
-                modified = modified || !outputs.is_empty();
+            match x.additional_properties.get_mut("outputs") {
+                Some(serde_json::Value::Array(ref mut v)) if !v.is_empty() => {
+                    modified = true;
+                    v.clear();
+                }
+                _ => {}
             }
-            x.outputs = Some(vec![]);
             if let Some(value) = x.additional_properties.get_mut("execution_count") {
                 *value = serde_json::value::Value::Null;
             }

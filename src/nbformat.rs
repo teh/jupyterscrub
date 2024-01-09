@@ -12,7 +12,6 @@ type Any = BTreeMap<String, Value>;
 pub struct Cell {
     // decoding cell_type as string because there can be arbitrary unreconised types
     pub cell_type: String,
-    pub outputs: Option<Vec<Any>>,
     // pub execution_count: Option<i64>,
     #[serde(flatten)]
     pub additional_properties: Any,
